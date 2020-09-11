@@ -1,4 +1,4 @@
-# KirillLP 1.0 Beta
+# Free_Lp 1.0 Beta
 ## Содержание
 1.[Как Установить]
 (https://github.com/kurillweasnk/KirillLP#Как-Установить)
