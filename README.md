@@ -14,9 +14,9 @@
 
 Скачиваем Git
 
-Копируем Lp Командой git clone https://github.com/kurillweasnk/KirillLP/
+Копируем Lp Командой git clone https://github.com/kurillweasnk/free_lp/
 
-Входим в лп cd KirillLP
+Входим в лп cd free_lp
 
 Устонавливаем библеотеки командой pip3 install -r requirements.txt
 
