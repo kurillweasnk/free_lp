@@ -180,7 +180,7 @@ async def user(delay: float, peer_id: int, command: str, msg_id: int):
  await asyncio.sleep(delay) 
  
  if command.lower().startswith(".л кто"): 
- try:user_id = reply_message(peer_id) 
+ try: user_id = reply_message(peer_id) 
  
  
  
