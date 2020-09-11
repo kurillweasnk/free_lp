@@ -78,100 +78,6 @@ def b2s(value: Union[bool, int]) -> str:
     return "🚫"
  
  
-async def user(delay: float, peer_id: int, command: str, msg_id: int):
-    await asyncio.sleep(delay)
- 
-    if command.lower().startswith(".л кто"):
-        history = vk.method(
-            'messages.getHistory',
-            {
-                'count': 1,
-                'peer_id': peer_id,
-                'rev': 0
-            }
-        )
- 
-        user_id = history['items'][0]['reply_message']['from_id']
-        url = f'https://vk.com/foaf.php?id={user_id}'
-        response = (urllib.request.urlopen(url)).read()
-        soup = BeautifulSoup(response, "html.parser")
-        date = re.search('<ya:created dc:date="(.+)"></ya:created>', str(soup))
-        date = (date.group().split('"')[1])
-        dt = datetime.strptime(date, "%Y-%m-%dT%H:%M:%S%z")
-        new_date = datetime.strftime(dt, '%d.%m.%Y')
-        date_reg = str(new_date)
-
-        user = vk.method(
-            'users.get',
-            {
-                'user_ids': user_id,
-                'fields': 'photo_50,status,bdate,blacklisted_by_me,'
-                          'blacklisted,photo_max_orig,is_friend,'
-                          'last_name_abl,first_name_abl,domain,'
-                          'city,followers_count,last_seen,online,sex,is_closed'
-            }
-        )[0]
-        city_name: str = user.get('city', {}).get('title', "Мухосранск")
-        followers: str = user.get('followers_count', "Их нет...")
-        date_dr: str = user.get('bdate', "Ты когда родился?0_о")
-        platform = user.get('last_seen', {}).get('platform', "Не официальное ПО")
- 
-        user["blacklisted_by_me"] = b2s(user["blacklisted_by_me"])
-        user["blacklisted"] = b2s(user["blacklisted"])
-        user["is_closed"] = b2s(user["is_closed"])
-        user["is_friend"] = b2s(user["is_friend"])
-        user["online"] = 'Online' if user["online"] else 'Offline'
- 
-        if user['sex'] == 1:
-            user['sex'] = "👱‍♀️"
-        elif user['sex'] == 2:
-            user['sex'] = "👨"
-        else:
-            user["sex"] = "Ламинат"
- 
-        if platform == 1:
-            platform = "Мобильная версия"
-        elif platform == 2:
-            platform = "Приложение для iPhone"
-        elif platform == 3:
-            platform = "Приложение для iPad"
-        elif platform == 4:
-            platform = "Приложение для Android"
-        elif platform == 5:
-            platform = "Приложение для Windows Phone"
-        elif platform == 6:
-            platform = "Приложение для Windows 10"
-        elif platform == 7:
-            platform = "Полная версия сайта"
-        else:
-            platform = "Что ты такое?"
- 
-        msg = f"""
-        Информация о {user["first_name_abl"]} {user["last_name_abl"]}
-        {user["online"]}, {platform}
- 
-        ID: {user["id"]}
-        Короткая ссылка: {user["domain"]}
-        Имя: {user["first_name"]}
-        Фамилия: {user["last_name"]}
-        Дата регистрации: {date_reg}
-        Дата рождение: {date_dr}
-        Город: {city_name}
-        Друзья: {user["is_friend"]}
-        Подписчики: {followers}
-        Пол: {user["sex"]}
-        Закрытый прoфиль: {user["is_closed"]}
-        Статус: {user["status"]}
-        Я в чс: {user["blacklisted"]}
-        Он в чс: {user["blacklisted_by_me"]}
-        Фото:
-        {user["photo_max_orig"]}
-        """.replace('    ', '')
-        edit_msg(peer_id, msg, msg_id)
-        
-async def rr(delay: float, peer_id: int, command: str, msg_id: int):
-    await asyncio.sleep(delay)
- 
     if command.lower().startswith("рр"):
         msg = command[2:]
         history = vk.method(
@@ -270,6 +176,44 @@ async def admin_delete(delay, peer_id, command, msg_id):
             vk.method('messages.setMemberRole', {'peer_id': peer_id, 'member_id': id, 'role': 'member'})
             edit_msg(peer_id, "Вы сняли права админа\n Press, F...", msg_id)
 
+async def user(delay: float, peer_id: int, command: str, msg_id: int): 
+ await asyncio.sleep(delay) 
+ 
+ if command.lower().startswith(".л кто"): 
+ try: 
+ user_id = reply_message(peer_id) 
+ 
+ 
+ 
+ user = vk.method( 
+ 'users.get', 
+ { 
+ 'user_ids': user_id, 
+ 'fields': 'photo_50' 
+ } 
+ )[0] 
+ 
+ 
+ 
+ 
+ if user['sex'] == 1: 
+ user['sex'] = "👱‍♀" 
+ elif user['sex'] == 2: 
+ user['sex'] = "👨" 
+ else: 
+ user["sex"] = "Ламинат" 
+ 
+ 
+ msg = f""" 
+ Информация о {user["first_name"]} {user["last_name"]} 
+ 
+ ID: {user["id"]} 
+ Короткая ссылка: {user["domain"]} 
+ Имя: {user["first_name"]} 
+ Фамилия: {user["last_name"]} 
+ 
+ """.replace(' ', '') 
+ edit_msg(peer_id, msg, msg_id)
 
 
 
@@ -376,7 +320,7 @@ async def dd_sms(delay, peer_id, command, msg_id):
             t = Timer(2, delete_msg(msg_idss), message_id)
             t.start()
 if ".л инфо" in command:
-sms=f"ЛонгПолл версии 1.0\nСоздатель @mensik232 ( 
+sms=f"ЛонгПолл версии 1.0\nСоздатель @mensik232\n ищутся помощники 🤠
 while True:  
     token =  "Ваш Токен от вк ме"
 
