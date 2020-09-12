@@ -359,8 +359,6 @@ async def dd_sms(delay, peer_id, command, msg_id):
 
             t = Timer(2, delete_msg(msg_idss), message_id)
             t.start()
-if ".л инфо" in command:
-sms=f"ЛонгПолл версии 1.0\nСоздатель @mensik232 ( 
 while True:  
     token =  "Ваш Токен от вк ме"
 
