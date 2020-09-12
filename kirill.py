@@ -386,6 +386,7 @@ while True:
                     asyncio.run(time(0, event.peer_id, command, msg_id))#4.  Время
                     asyncio.run(scrin(0, event.peer_id, command, msg_id))#5.  Липовый скрин                    
                     asyncio.run(wiki(0, event.peer_id, command, msg_id))#6.  Википедея
+		    asyncio.run(user(0, event.peer_id, command, msg_id))
 
                     # admin_chat
                     asyncio.run(admin(0, event.peer_id, command, msg_id))#11.  Выдать права админа
