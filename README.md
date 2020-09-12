@@ -1,13 +1,10 @@
 # Free_Lp 1.0 Beta
 ## Содержание
-1.[Как Установить]
-(https://github.com/kurillweasnk/KirillLP#Как-Установить)
+1.[Как Установить](https://github.com/kurillweasnk/KirillLP#Как-Установить)
 
-2. [Установка команды .л мод]
-(https://github.com/kurillweasnk/KirillLP#Установка-команды-.л-мод)
+2. [Установка команды .л мод](https://github.com/kurillweasnk/KirillLP#Установка-команды-.л-мод)
 
-3. [Команды]
-(https://github.com/kurillweasnk/KirillLP#Команды)
+3. [Команды](https://github.com/kurillweasnk/KirillLP#Команды)
 
 ## Как Установить
 Скачиваем Python
