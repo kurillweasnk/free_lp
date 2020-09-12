@@ -54,7 +54,7 @@ async def wiki(delay, peer_id, command, msg_id):
     	text = command[5:]
     	wikipedia.set_lang('ru') 
     	fedr = wikipedia.summary(text)  
-    	edit_msg(peer_id, fedr, msg_id)  
+    	write_msg(peer_id, fedr, msg_id)  
     	
 async def ping(delay, peer_id, command, msg_id):
     await asyncio.sleep(delay)
