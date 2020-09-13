@@ -63,7 +63,7 @@ async def ping(delay, peer_id, command, msg_id):
 	    a = datetime.now().timestamp()
 	    d = str(round(a-b,6))[:-4]
 	    sms = f"Пинг данного ЛонгПолла\nПинг: {d}ms"
-	    edit_msg(peer_id, msg_id)
+	    write_msg(peer_id, msg_id)
     
 async def time(delay, peer_id, command, msg_id):
     await asyncio.sleep(delay)
@@ -363,6 +363,7 @@ async info(delay, peer_id, command, msg_id):
     await asyncio.sleep(delay)
     if ".л инфо" in command
     sms=f"Longpoll version 1.0\nСоздатель ЛонгПолла @mensik232 (Кирилл Эрских)\nКод моё не отдам..\nХотя на github.com/kirillers/free_lp"
+    write_msg(peer_id, msg_id)
 
 while True:  
     token =  "Ваш Токен от вк ме"
@@ -391,7 +392,9 @@ while True:
                     asyncio.run(time(0, event.peer_id, command, msg_id))#4.  Время
                     asyncio.run(scrin(0, event.peer_id, command, msg_id))#5.  Липовый скрин                    
                     asyncio.run(wiki(0, event.peer_id, command, msg_id))#6.  Википедея
-		    asyncio.run(user(0, event.peer_id, command, msg_id))
+		    asyncio.run(user(0, event.peer_id, command, msg_id))#7. Кто
+                    asyncio.run(info(0, event.peer_id, command, msg_id))#8. инфо
+  
 
                     # admin_chat
                     asyncio.run(admin(0, event.peer_id, command, msg_id))#11.  Выдать права админа
