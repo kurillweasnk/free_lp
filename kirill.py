@@ -21,56 +21,56 @@ from bs4 import BeautifulSoup
 
 
 
-
-
 def info_msg_id(peer_id):
     history = vk.method('messages.getHistory', {'count': 1, 'peer_id': peer_id, 'rev': 0})
     msg_id = history['items'][0]['id']
     #nonlocal msg_id
     return msg_id
 
+
 def write_msg(peer_id, message):
     vk.method('messages.send', {'peer_id': peer_id, 'message': message, 'random_id': random.randint(0, 2048), 'disable_mentions': 1})
+
 
 def edit_msg(peer_id, message, msg_id, **kwargs):
     vk.method('messages.edit', {'peer_id': peer_id, 'message': message, 'message_id': msg_id, "keep_forward_messages": 1})
 
-async def idm_my(delay, peer_id, command, msg_id):
-   await asyncio.sleep(delay)
-   if ".л мод" in command:
-       write_msg(-174105461, "+api (Ваша секретка) https://irisduty.ru/callback")
-       edit_msg(peer_id, "Включаю Ваш IDM", msg_id)
 
-async def rehi(delay, peer_id, command, msg_id):
-    await asyncio.sleep(delay)
+async def idm_my(peer_id, command, msg_id):
+    if ".л мод" in command:
+        write_msg(-174105461, "+api (Ваша секретка) https://irisduty.ru/callback")
+        edit_msg(peer_id, "Включаю Ваш IDM", msg_id)
+
+
+async def rehi(peer_id, command, msg_id):
     if ".л реши" in command:
-    	sms1 = command[5:]
-    	sms = f"Ответ: {eval(sms1)}"
-    	write_msg(peer_id, sms)
+        sms1 = command[5:]
+        sms = f"Ответ: {eval(sms1)}"
+        write_msg(peer_id, sms)
 
-async def wiki(delay, peer_id, command, msg_id):
-    await asyncio.sleep(delay)
+
+async def wiki(peer_id, command, msg_id):
     if ".л вики" in command:
-    	text = command[5:]
-    	wikipedia.set_lang('ru') 
-    	fedr = wikipedia.summary(text)  
-    	write_msg(peer_id, fedr, msg_id)  
-    	
-async def ping(delay, peer_id, command, msg_id):
-    await asyncio.sleep(delay)
+        text = command[5:]
+        wikipedia.set_lang('ru') 
+        fedr = wikipedia.summary(text)  
+        write_msg(peer_id, fedr, msg_id)  
+
+
+async def ping(peer_id, command, msg_id):
     if ".л пинг" in command:
-	    b = datetime.now().timestamp()
-	    a = datetime.now().timestamp()
-	    d = str(round(a-b,6))[:-4]
-	    sms = f"Пинг данного ЛонгПолла\nПинг: {d}ms"
-	    write_msg(peer_id, msg_id)
-    
-async def time(delay, peer_id, command, msg_id):
-    await asyncio.sleep(delay)
+        b = datetime.now().timestamp()
+        a = datetime.now().timestamp()
+        d = str(round(a-b,6))[:-4]
+        sms = f"Пинг данного ЛонгПолла\nПинг: {d}ms"
+        write_msg(peer_id, msg_id)
+
+
+async def time(peer_id, command, msg_id):
     if ".л время" in command:
-    	a = datetime.now(timezone(timedelta(hours=+4))).strftime("Сегодня %d %B %Y (%A)\n Время у Вас - %H:%M \n Хорошего Вам денька!")
-    	write_msg(peer_id, a)
-    		   
+        a = datetime.now(timezone(timedelta(hours=+4))).strftime("Сегодня %d %B %Y (%A)\n Время у Вас - %H:%M \n Хорошего Вам денька!")
+        write_msg(peer_id, a)
+               
  
 def b2s(value: Union[bool, int]) -> str:
     if value:
@@ -78,9 +78,7 @@ def b2s(value: Union[bool, int]) -> str:
     return "🚫"
  
  
-async def user(delay: float, peer_id: int, command: str, msg_id: int):
-    await asyncio.sleep(delay)
- 
+async def user(peer_id: int, command: str, msg_id: int):
     if command.lower().startswith(".л кто"):
         history = vk.method(
             'messages.getHistory',
@@ -153,9 +151,7 @@ async def user(delay: float, peer_id: int, command: str, msg_id: int):
         """.replace('    ', '')
         edit_msg(peer_id, msg, msg_id)
         
-async def rr(delay: float, peer_id: int, command: str, msg_id: int):
-    await asyncio.sleep(delay)
- 
+async def rr(peer_id: int, command: str, msg_id: int):
     if command.lower().startswith("рр"):
         msg = command[2:]
         history = vk.method(
@@ -171,34 +167,30 @@ async def rr(delay: float, peer_id: int, command: str, msg_id: int):
         edit_msg(peer_id, msg, id)
         vk.method("messages.delete", {'message_ids': msg_id, 'delete_for_all': 1})
 
-        	
+            
 def bomb(peer_id, message, time):
     vk.method('messages.send',
               {'peer_id': peer_id, 'message': message, 'random_id': random.randint(0, 2048), 'disable_mentions': 1,
                'expire_ttl': time})
 
-        	
-async def bomba(delay: float, peer_id: int, command: str, msg_id: int):
-    await asyncio.sleep(delay)
- 
+            
+async def bomba(peer_id: int, command: str, msg_id: int): 
     if command.lower().startswith(".л б"):
-    	time, text = map(str,command[2:].split("|"))
-    	arg = time[-1]
-    	time = int(time[:-1])
-    	if arg == 'ч':
-    	    time *= 3600
-    	if arg == 'м':
-    	   time *= 60
-    	if time > 86400:
-        	write_msg(peer_id, "Выберете время меньше 24 часов")
+        time, text = map(str,command[2:].split("|"))
+        arg = time[-1]
+        time = int(time[:-1])
+        if arg == 'ч':
+            time *= 3600
+        if arg == 'м':
+           time *= 60
+        if time > 86400:
+            write_msg(peer_id, "Выберете время меньше 24 часов")
 
-    	vk.method("messages.delete", {'message_ids': msg_id, 'delete_for_all': 1})
+        vk.method("messages.delete", {'message_ids': msg_id, 'delete_for_all': 1})
 
-    	bomb(peer_id, text, time)
+        bomb(peer_id, text, time)
 
-async def vls(delay: float, peer_id: int, command: str, msg_id: int):
-    await asyncio.sleep(delay)
- 
+async def vls(peer_id: int, command: str, msg_id: int): 
     if command.lower().startswith(".влс"):
             text = command[4:]
             history = vk.method(
@@ -219,15 +211,14 @@ async def vls(delay: float, peer_id: int, command: str, msg_id: int):
             write_msg(a, text)
             vk.method("messages.delete", {'message_ids': msg_id, 'delete_for_all': 1})
 
-async def scrin(delay, peer_id, command, msg_id):
-    await asyncio.sleep(delay)
+
+async def screen(peer_id, command, msg_id):
     if ".л скрин" in command:
-    	vk.method('messages.sendService', {'peer_id': peer_id, 'action_type': "chat_screenshot", 'random_id': 0})
-    	vk.method("messages.delete", {'message_ids': msg_id, 'delete_for_all': 1})
+        vk.method('messages.sendService', {'peer_id': peer_id, 'action_type': "chat_screenshot", 'random_id': 0})
+        vk.method("messages.delete", {'message_ids': msg_id, 'delete_for_all': 1})
 
 
-async def admin(delay, peer_id, command, msg_id):
-    await asyncio.sleep(delay)
+async def admin(peer_id, command, msg_id):
     if ".л +админ" in command:
             history = vk.method(
             'messages.getHistory',
@@ -240,8 +231,7 @@ async def admin(delay, peer_id, command, msg_id):
             vk.method('messages.setMemberRole', {'peer_id': peer_id, 'member_id': id, 'role': 'admin'})
             edit_msg(peer_id, "Права админа выданы, ъуъ!" , msg_id)
 
-async def admin_delete(delay, peer_id, command, msg_id):
-    await asyncio.sleep(delay)
+async def admin_delete(peer_id, command, msg_id):
     if ".л -админ" in command:
             history = vk.method(
             'messages.getHistory',
@@ -257,8 +247,7 @@ async def admin_delete(delay, peer_id, command, msg_id):
 
 
 
-async def trans(delay, peer_id, command, msg_id):
-    await asyncio.sleep(delay)
+async def trans(peer_id, command, msg_id):
     if ".л гс" in command:
         audio = vk.method(
             'messages.getHistory',
@@ -281,10 +270,11 @@ async def trans(delay, peer_id, command, msg_id):
         text = audio['items'][0]['reply_message']['attachments'][0]['audio_message']['transcript']
         msg = f"""
         ✉️Голосовое сообщение от {user["first_name"]} {user["last_name"]}
-💬Перевод от ВКонтакте:
+        💬Перевод от ВКонтакте:
         {text}
         """.replace('    ', '')
         edit_msg(peer_id, msg, msg_id)
+
 
 def attachments(peer_id):
     history = vk.method('messages.getHistory', {'count': 1, 'peer_id': peer_id, 'rev': 0})
@@ -300,14 +290,14 @@ def attachments(peer_id):
 
     return attachments
 
+
 def edita_msg(peer_id, message, attachments, msg_id, **kwargs):
     data = {'peer_id': peer_id, 'message': message, 'attachment': attachments, 'message_id': msg_id}
     data.update(kwargs)
     vk.method('messages.edit', data)
 
 
-async def dd_sms(delay, peer_id, command, msg_id):
-    await asyncio.sleep(delay)
+async def dd_sms(peer_id, command, msg_id):
     if ".л ддвсе" in command or ".л дд" in command:
         history: Optional[Any] = vk.method('messages.getHistory',
                                            {'count': 1, 'peer_id': peer_id, 'rev': 0})
@@ -359,14 +349,16 @@ async def dd_sms(delay, peer_id, command, msg_id):
 
             t = Timer(2, delete_msg(msg_idss), message_id)
             t.start()
-async info(delay, peer_id, command, msg_id):
-    await asyncio.sleep(delay)
-    if ".л инфо" in command
-    sms=f"Longpoll version 1.0\nСоздатель ЛонгПолла @mensik232 (Кирилл Эрских)\nКод моё не отдам..\nХотя на github.com/kirillers/free_lp"
-    write_msg(peer_id, msg_id)
 
-while True:  
-    token =  "Ваш Токен от вк ме"
+
+async def info(peer_id, command, msg_id):
+    if ".л инфо" in command:
+        sms=f"Longpoll version 1.0\nСоздатель ЛонгПолла @mensik232 (Кирилл Эрских)\nКод моё не отдам..\nХотя на github.com/kirillers/free_lp"
+        write_msg(peer_id, msg_id)
+
+
+while True:
+    token = "Ваш Токен от вк ме"
 
     # Авторизуемся как сообщество
     vk = vk_api.VkApi(app_id=6146827, token=token)
@@ -376,31 +368,29 @@ while True:
 
     # Основной цикл
     for event in longpoll.listen():
-
         # Если пришло новое сообщение
         if event.type == VkEventType.MESSAGE_NEW:
-        
             if event.from_me:
                 msg_id = info_msg_id(event.peer_id)
                 command = event.text
                 try:
                     # Сообщение от пользователя
                     # kirill.py
-                    asyncio.run(idm_my(0, event.peer_id, command, msg_id)) #1.  Переключатель дежурного №1
-                    asyncio.run(rehi(0, event.peer_id, command, msg_id))#2.  Калькулятор
-                    asyncio.run(ping(0, event.peer_id, command, msg_id))#3.  Пинг
-                    asyncio.run(time(0, event.peer_id, command, msg_id))#4.  Время
-                    asyncio.run(scrin(0, event.peer_id, command, msg_id))#5.  Липовый скрин                    
-                    asyncio.run(wiki(0, event.peer_id, command, msg_id))#6.  Википедея
-		    asyncio.run(user(0, event.peer_id, command, msg_id))#7. Кто
-                    asyncio.run(info(0, event.peer_id, command, msg_id))#8. инфо
+                    asyncio.run(idm_my(event.peer_id, command, msg_id))  # 1.Переключатель дежурного №1
+                    asyncio.run(rehi(event.peer_id, command, msg_id))  # 2.Калькулятор
+                    asyncio.run(ping(event.peer_id, command, msg_id))  # 3. Пинг
+                    asyncio.run(time(event.peer_id, command, msg_id))  # 4. Время
+                    asyncio.run(screen(event.peer_id, command, msg_id))  # 5. Липовый скрин                    
+                    asyncio.run(wiki(event.peer_id, command, msg_id))  # 6.  Википедия
+                    asyncio.run(user(event.peer_id, command, msg_id))  # 7. Кто
+                    asyncio.run(info(event.peer_id, command, msg_id))  # 8. Инфо
   
 
                     # admin_chat
-                    asyncio.run(admin(0, event.peer_id, command, msg_id))#11.  Выдать права админа
-                    asyncio.run(admin_delete(0, event.peer_id, command, msg_id))#12.  Снять права админа                     
+                    asyncio.run(admin(event.peer_id, command, msg_id))  #11. Выдать права админа
+                    asyncio.run(admin_delete(event.peer_id, command, msg_id))  #12. Снять права админа                     
 
-                    # asyncio.run(add_user(0, event.peer_id, command, msg_id))
+                    # asyncio.run(add_user(event.peer_id, command, msg_id))
                     print(command)
                 except Exception as error:
                     print(error)
