@@ -13,7 +13,7 @@ from time import gmtime, strftime
 import threading
 import json
 from typing import Union
-#import locale
+import locale
 #locale.setlocale(locale.LC_TIME, 'ru_RU.UTF-8')
 import wikipedia
 import urllib.request
