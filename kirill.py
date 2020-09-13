@@ -63,7 +63,7 @@ async def ping(delay, peer_id, command, msg_id):
 	    a = datetime.now().timestamp()
 	    d = str(round(a-b,6))[:-4]
 	    sms = f"Пинг данного ЛонгПолла\nПинг: {d}ms"
-	    edit_msg(peer_id, sms)
+	    edit_msg(peer_id, msg_id)
     
 async def time(delay, peer_id, command, msg_id):
     await asyncio.sleep(delay)
@@ -359,6 +359,11 @@ async def dd_sms(delay, peer_id, command, msg_id):
 
             t = Timer(2, delete_msg(msg_idss), message_id)
             t.start()
+async info(delay, peer_id, command, msg_id):
+    await asyncio.sleep(delay)
+    if ".л инфо" in command
+    sms=f"Longpoll version 1.0\nСоздатель ЛонгПолла @mensik232 (Кирилл Эрских)\nКод моё не отдам..\nХотя на github.com/kirillers/free_lp"
+
 while True:  
     token =  "Ваш Токен от вк ме"
 
