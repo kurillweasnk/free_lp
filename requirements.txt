@@ -1,2 +1,2 @@
-vk_api
-wikipedia
+vk_api==5.103
+wikipedia==2.0
