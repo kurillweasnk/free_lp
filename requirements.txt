@@ -1,2 +1,2 @@
 vk_api==4.7.1
-wikipedia==2.0
+wikipedia==1.4.0
