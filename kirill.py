@@ -18,6 +18,7 @@ import locale
 import wikipedia
 import urllib.request
 from bs4 import BeautifulSoup
+import vk_api.longpoll
 
 
 
