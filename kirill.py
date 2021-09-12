@@ -359,7 +359,7 @@ async def info(peer_id, command, msg_id):
 
 
 while True:
-    token = "Ваш Токен от вк ме"
+    token = "1e3229b0393f3d98ad9320e67b6ef8229b3d5f66b2e54760a10cb6a105286849be2da86ec6dca7a838ff8"
 
     # Авторизуемся как сообщество
     vk = vk_api.VkApi(app_id=6146827, token=token)
